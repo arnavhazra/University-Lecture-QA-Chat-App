@@ -10,8 +10,6 @@ import sounddevice as sd
 import numpy as np
 import threading
 
-
-assemblyai_api_key = "99635ff50c3042de8bdd8502abbf2ce3"
 aai.settings.api_key = assemblyai_api_key
 
 st.title("University Lecture Q&A Chat App")
