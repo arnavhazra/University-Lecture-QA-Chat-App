@@ -9,7 +9,11 @@ import yt_dlp
 import sounddevice as sd
 import numpy as np
 import threading
+from dotenv import load_dotenv
 
+load_dotenv()
+
+assemblyai_api_key=os.getenv('assemblyai_api_key')
 aai.settings.api_key = assemblyai_api_key
 
 st.title("University Lecture Q&A Chat App")
