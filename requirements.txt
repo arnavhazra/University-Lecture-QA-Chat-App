@@ -1,0 +1,10 @@
+streamlit==1.2.0
+assemblyai==0.3.0
+requests==2.26.0
+tempfile==0.7.0
+moviepy==1.0.3
+pydub==0.25.1
+yt-dlp==2021.8.10
+sounddevice==0.4.2
+numpy==1.21.2
+threading==1.0.0
