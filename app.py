@@ -10,6 +10,7 @@ import sounddevice as sd
 import numpy as np
 import threading
 from dotenv import load_dotenv
+import pyaudio
 
 load_dotenv()
 
