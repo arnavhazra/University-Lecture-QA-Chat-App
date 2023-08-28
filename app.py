@@ -4,10 +4,20 @@ from io import BytesIO
 import requests
 import tempfile
 from moviepy.editor import *
-from pydub import AudioSegment
 import yt_dlp
 import numpy as np
-import threading
+import imageio_ffmpeg as ffmpeg
+
+ydl_opts = {
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+    'outtmpl': 'temp_audio.%(ext)s',
+    'ffmpeg_location': ffmpeg.get_ffmpeg_executable(),
+}
 
 assemblyai_api_key = st.secrets['assemblyai_api_key']
 aai.settings.api_key = assemblyai_api_key

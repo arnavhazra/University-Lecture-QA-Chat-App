@@ -2,6 +2,6 @@ streamlit
 assemblyai
 requests
 moviepy
-pydub
 yt-dlp
 numpy
+imageio_ffmpeg 
