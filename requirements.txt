@@ -4,6 +4,5 @@ requests
 moviepy
 pydub
 yt-dlp
-sounddevice
 numpy
-pyaudio
+
