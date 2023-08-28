@@ -6,11 +6,9 @@ import tempfile
 from moviepy.editor import *
 from pydub import AudioSegment
 import yt_dlp
-import sounddevice as sd
 import numpy as np
 import threading
 from dotenv import load_dotenv
-import pyaudio
 
 load_dotenv()
 
@@ -19,7 +17,7 @@ aai.settings.api_key = assemblyai_api_key
 
 st.title("University Lecture Q&A Chat App")
 
-input_type = st.selectbox("Select input type", ["Video", "Audio", "Record Audio", "YouTube"])
+input_type = st.selectbox("Select input type", ["Video", "Audio", "YouTube"])
 
 if "uploaded_file" not in st.session_state:
     st.session_state.uploaded_file = None
@@ -85,12 +83,7 @@ def download_youtube_audio(youtube_url):
     audio_data.seek(0)
     return audio_data
 
-def record_audio():
-    with sd.InputStream(device=device_index, callback=lambda indata, frames, time, status: (st.session_state.audio_buffer.append(indata.copy()), print(len(st.session_state.audio_buffer)))) as stream:
-        while st.session_state.recording:
-            sd.sleep(100)
-    stream.close() 
-    
+
 if not st.session_state.get("transcript"):
     st.session_state.transcript = None
 
@@ -116,41 +109,6 @@ if uploaded_file:
                 st.write("Transcription complete, Q/A ready")
     else:
         st.write("Please upload only the selected file type")
-    
-    
-if input_type == "Record Audio":
-    devices = sd.query_devices()
-    input_devices = [device['name'] for device in devices if device['max_input_channels'] > 0]
-    selected_device = st.selectbox("Select input device", input_devices)
-    device_index = next((index for index, device in enumerate(devices) if device['name'] == selected_device), None)
-
-    record_thread = None
-
-    if st.button("Start Recording"):
-        if not st.session_state.recording:
-            st.session_state.recording = True
-            st.session_state.audio_buffer = []
-            record_thread = threading.Thread(target=record_audio)
-            record_thread.start()
-            st.write("Recording...")
-
-    if st.button("Analyze"):
-        if st.session_state.recording:
-            st.session_state.recording = False
-            if record_thread:
-                record_thread.join()
-            if st.session_state.audio_buffer:
-                audio_data = np.concatenate(st.session_state.audio_buffer, axis=0)
-                audio_data = (audio_data * np.iinfo(np.int16).max).astype(np.int16).tobytes()
-                audio_data = BytesIO(audio_data)
-                audio_data.seek(0)
-
-                if not st.session_state.get("transcript"):
-                    st.write("Transcription in progress...")
-                    audio_url = upload_file_to_assemblyai(audio_data)
-                    transcriber = aai.Transcriber()
-                    st.session_state.transcript = transcriber.transcribe(audio_url)
-                    st.write("Transcription complete, Q/A ready")
 
 
 if input_type == "YouTube":
