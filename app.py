@@ -9,6 +9,7 @@ import yt_dlp
 import numpy as np
 import threading
 
+assemblyai_api_key = st.secrets['assemblyai_api_key']
 aai.settings.api_key = assemblyai_api_key
 
 st.title("University Lecture Q&A Chat App")
