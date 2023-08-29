@@ -6,11 +6,9 @@ import tempfile
 from moviepy.editor import *
 import yt_dlp
 import numpy as np
-import imageio_ffmpeg as ffmpeg
 import os 
 import os.path
-from pydub import AudioSegment
-
+import pydub
 
 
 assemblyai_api_key = st.secrets['assemblyai_api_key']

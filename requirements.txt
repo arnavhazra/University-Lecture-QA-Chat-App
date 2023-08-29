@@ -4,5 +4,7 @@ requests
 moviepy
 yt-dlp
 numpy
-imageio_ffmpeg 
 pydub
+ffmpeg
+ffprobe
+pyaudio
