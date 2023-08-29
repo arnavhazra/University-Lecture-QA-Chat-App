@@ -3,13 +3,14 @@ import assemblyai as aai
 from io import BytesIO
 import requests
 import tempfile
-from moviepy.editor import *
+from moviepy.editor import VideoFileClip
 import yt_dlp
 import numpy as np
 import os 
 import os.path
-import pydub
+from imageio_ffmpeg import get_ffmpeg_exe
 
+os.environ["FFMPEG_BINARY"] = get_ffmpeg_exe()
 
 assemblyai_api_key = st.secrets['assemblyai_api_key']
 aai.settings.api_key = assemblyai_api_key
