@@ -8,7 +8,8 @@ import yt_dlp
 import numpy as np
 import imageio_ffmpeg as ffmpeg
 import os 
-import os.path 
+import os.path
+from pydub import AudioSegment
 
 
 
@@ -70,8 +71,6 @@ def download_youtube_audio(youtube_url):
         'preferredquality': '192',
     }],
     'outtmpl': 'temp_audio.%(ext)s',
-    'ffmpeg_location': ffmpeg.get_ffmpeg_exe(),
-    'ffprobe_location': ffmpeg.get_ffprobe_exe(),
 }
 
     with st.spinner("Processing YouTube video..."):

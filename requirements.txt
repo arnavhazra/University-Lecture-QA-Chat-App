@@ -5,3 +5,4 @@ moviepy
 yt-dlp
 numpy
 imageio_ffmpeg 
+pydub
