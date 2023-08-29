@@ -7,17 +7,11 @@ from moviepy.editor import *
 import yt_dlp
 import numpy as np
 import imageio_ffmpeg as ffmpeg
+import os 
+import os.path 
 
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-    'outtmpl': 'temp_audio.%(ext)s',
-    'ffmpeg_location': ffmpeg.get_ffmpeg_executable(),
-}
+os.environ["FFMPEG_BINARY"] = ffmpeg.get_ffmpeg_version()
+os.environ["FFPROBE_BINARY"] = ffmpeg.get_ffprobe_version()
 
 assemblyai_api_key = st.secrets['assemblyai_api_key']
 aai.settings.api_key = assemblyai_api_key
@@ -70,14 +64,16 @@ def process_audio_with_lemur(transcript, questions):
 
 def download_youtube_audio(youtube_url):
     ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'outtmpl': 'temp_audio.%(ext)s',
-    }
+    'format': 'bestaudio/best',
+    'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+    'outtmpl': 'temp_audio.%(ext)s',
+    'ffmpeg_location': ffmpeg.get_ffmpeg_version(),
+    'ffprobe_location': ffmpeg.get_ffprobe_version(),
+}
 
     with st.spinner("Processing YouTube video..."):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
