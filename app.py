@@ -10,8 +10,7 @@ import imageio_ffmpeg as ffmpeg
 import os 
 import os.path 
 
-os.environ["FFMPEG_BINARY"] = ffmpeg.get_ffmpeg_version()
-os.environ["FFPROBE_BINARY"] = ffmpeg.get_ffprobe_version()
+
 
 assemblyai_api_key = st.secrets['assemblyai_api_key']
 aai.settings.api_key = assemblyai_api_key
@@ -71,8 +70,8 @@ def download_youtube_audio(youtube_url):
         'preferredquality': '192',
     }],
     'outtmpl': 'temp_audio.%(ext)s',
-    'ffmpeg_location': ffmpeg.get_ffmpeg_version(),
-    'ffprobe_location': ffmpeg.get_ffprobe_version(),
+    'ffmpeg_location': ffmpeg.get_ffmpeg_exe(),
+    'ffprobe_location': ffmpeg.get_ffprobe_exe(),
 }
 
     with st.spinner("Processing YouTube video..."):
